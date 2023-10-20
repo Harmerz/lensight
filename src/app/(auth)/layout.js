@@ -1,5 +1,3 @@
-import './globals.css'
-
 import { Inter } from 'next/font/google'
 import PropTypes from 'prop-types'
 
@@ -12,9 +10,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <div lang="en">
+      <duv className="h-full w-full">{children}</duv>
+    </div>
   )
 }
 
