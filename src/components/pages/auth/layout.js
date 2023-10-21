@@ -1,4 +1,4 @@
-import { Card, Flex, Steps } from 'antd'
+import { Card, Flex } from 'antd'
 
 export function LayoutAuth({ children }) {
   return (

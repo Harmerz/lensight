@@ -1,9 +1,23 @@
 import { Button, Checkbox, Flex, Form, Input, Space, Typography } from 'antd'
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
 
 export function LoginForm() {
-  const onFinish = (values) => {
-    console.log('Success:', values)
+  const onFinish = async (e) => {
+    try {
+      const res = await signIn('credentials', {
+        redirect: false,
+        email: e.email,
+        password: e.password,
+        // callbackUrl, // redirect url
+      })
+      console.log(res)
+      if (!res?.error) {
+        console.log('ERR')
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const onFinishFailed = (errorInfo) => {
