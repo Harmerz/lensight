@@ -7,6 +7,18 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        neutral: {
+          0: 'FFFFFF',
+          50: '#F6F6F6',
+          100: '#EEEEEE',
+          300: '#CBCBCB',
+          500: '#A8A8A8',
+          700: '#6D6D6D',
+          900: '#323232',
+          10: '#141414',
+        },
+      },
       fontFamily: {
         dmsans: ['DM Sans'],
         inter: ['Inter'],
