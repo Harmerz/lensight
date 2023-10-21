@@ -18,6 +18,11 @@ module.exports = {
           900: '#323232',
           10: '#141414',
         },
+        eneutral: {
+          100: '#232323',
+          200: '#2B2B2B',
+          300: '#414141',
+        },
       },
       fontFamily: {
         dmsans: ['DM Sans'],
@@ -29,5 +34,6 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  // eslint-disable-next-line global-require
+  plugins: [require('tailwind-scrollbar-hide')],
 }
