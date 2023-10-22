@@ -22,6 +22,26 @@ export const QuestionDetail = [
     question: 'Do you know your credit score right now ?',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus.',
+    childern: {
+      yes: {
+        question: 'Please, type what is your credit score right now',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus.',
+      },
+      no: {
+        question: 'Check your credit score right now',
+        description: (
+          <>
+            To check your credit score, visit{' '}
+            <a href="https://idebku.ojk.go.id">
+              <span className=" text-blue-800 underline">idebku.ojk.go.id</span>
+            </a>{' '}
+            and follow the instructions provided on the platform. Next please type what is your
+            credit score right now!
+          </>
+        ),
+      },
+    },
   },
   {
     title: 'Question 5',

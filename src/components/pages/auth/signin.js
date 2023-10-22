@@ -11,7 +11,6 @@ export function LoginForm() {
         password: e.password,
         // callbackUrl, // redirect url
       })
-      console.log(res)
       if (!res?.error) {
         console.log('ERR')
       }
