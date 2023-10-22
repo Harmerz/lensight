@@ -27,7 +27,6 @@ export const options = {
               },
             },
           )
-          console.log(res.data)
           const user = await axios.get('/api/user', {
             headers: {
               'Content-Type': 'application/json',
@@ -70,9 +69,8 @@ export const options = {
       return false
     },
     async jwt({ token, user }) {
-      // console.log('JWT Callback', { token, user })
-
       // Initial sign in
+
       if (user) {
         return {
           ...token,
@@ -84,7 +82,10 @@ export const options = {
           bridgeStatus: user.bridgeStatus,
         }
       }
-      if (Date.now() > token.accessTokenExpires) {
+      if (
+        Date.now() > token.accessTokenExpires ||
+        token.accessToken === 'RefreshAccessTokenError'
+      ) {
         return {
           ...token,
           accessTokenExpires: Date.now() + ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS, // expand access token expire
@@ -95,7 +96,7 @@ export const options = {
       return token
     },
     async session({ session, token }) {
-      console.log(session)
+      // console.log(session)
 
       return {
         ...session,
