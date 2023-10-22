@@ -7,9 +7,9 @@ export async function refreshAccessToken(refreshToken) {
       {},
       { headers: { Authorization: `Bearer ${refreshToken}` } },
     )
-    const newAccessToken = result.data.data.access_token
+    const newAccessToken = result.data.accessToken
     return newAccessToken
-  } catch {
+  } catch (err) {
     return 'RefreshAccessTokenError'
   }
 }
