@@ -1,38 +1,26 @@
-import { Card, Flex } from 'antd'
+import { Card } from 'antd'
+import Image from 'next/image'
+
+import { Steps } from '@/components/elements'
 
 export function LayoutAuth({ children }) {
   return (
-    <div className="h-[100vh] w-[100vw] bg-[#323232]">
-      <Flex gap="middle" horizontal="true" justify="space-between">
-        <Flex vertical align="center" justify="center" style={{ padding: 32 }} className="w-2/3">
-          <Flex vertical className="h-4/5">
-            {/* <p>Regristration Steps</p>
-            <Steps
-              direction="vertical"
-              className="h-full"
-              current={1}
-              items={[
-                {
-                  title: 'Personal Information',
-                },
-                {
-                  title: 'Education and Occupation Information',
-                },
-                {
-                  title: 'Business and Financial Information',
-                },
-                {
-                  title: 'Photo and Financial Report Documents',
-                },
-                {
-                  title: 'Summary and Submission',
-                },
-              ]}
-            /> */}
-          </Flex>
-        </Flex>
-        <Card className="flex h-[100vh] w-1/3 items-center justify-center">{children}</Card>
-      </Flex>
+    <div
+      className="flex h-[100vh] w-[100vw] flex-row justify-around"
+      style={{
+        backgroundImage: 'url("/assets/auth/bg_Auth.png")',
+        backgroundSize: 'cover, contain',
+      }}
+    >
+      <div className="flex w-2/3 items-center justify-center">
+        <Image src="/assets/auth/Auth.png" alt="Auth Image" width={572} height={456} />
+        {/* <Steps /> */}
+      </div>
+      <div className="w-1/3">
+        <Card className="absolute right-0 flex h-[100vh] w-1/3 items-center justify-center rounded-l-3xl">
+          {children}
+        </Card>
+      </div>
     </div>
   )
 }
