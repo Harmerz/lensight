@@ -4,7 +4,7 @@ const nextConfig = {
   images: {
     loader: 'custom',
     path: 'http://delightful-dune-098450410.4.azurestaticapps.net',
-    loaderFile: './components/loader.js',
+    loaderFile: './src/components/loader.js',
     remotePatterns: [
       {
         protocol: 'https',
