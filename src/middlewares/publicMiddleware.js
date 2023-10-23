@@ -23,7 +23,7 @@ export async function publicMiddleware(req) {
 
   if (isPublicPage) {
     if (token) {
-      const url = new URL('/lending', req.url)
+      const url = new URL('/chat/lending', req.url)
       return NextResponse.redirect(url)
     }
 

@@ -1,8 +1,6 @@
 import { Card } from 'antd'
 import Image from 'next/image'
 
-import { Steps } from '@/components/elements'
-
 export function LayoutAuth({ children }) {
   return (
     <div
