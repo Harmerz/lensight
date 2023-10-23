@@ -1,15 +1,19 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { IoLockClosed, IoSend } from 'react-icons/io5'
+import { useSession } from 'next-auth/react'
+import { useEffect, useRef, useState } from 'react'
+import { IoLockClosed, IoLogOutOutline, IoSend } from 'react-icons/io5'
 
 import { Steps } from '@/components/elements'
 import AnswerCard from '@/components/elements/answerCard'
 import QuestionCard from '@/components/elements/questionCard'
+import { HandleLogout } from '@/components/pages/auth'
 import { useGetQuestions, useQuestions } from '@/hooks/question'
 import { Question, QuestionDetail, Result } from '@/utils/const'
 
 export function LendingPage() {
+  const { data: session } = useSession()
+  // const Logout = HandleLogout(session?.user?.refreshToken)
   const { data, refetch } = useGetQuestions()
   const { mutate: Questions, isSuccess } = useQuestions()
   // eslint-disable-next-line no-unsafe-optional-chaining
@@ -20,7 +24,13 @@ export function LendingPage() {
   const [answerUser, setAnswerUser] = useState('')
   const [question3, setQuestion3] = useState('')
   const [question4, setQuestion4] = useState('')
-
+  const [open, setOpen] = useState(false)
+  const openRef = useRef(null)
+  useEffect(() => {
+    window.addEventListener('click', (e) => {
+      if (!openRef?.current?.contains(e.target)) setOpen(false)
+    })
+  })
   const handleAnswer = () => {
     Questions({
       number: currentQuestions,
@@ -32,9 +42,9 @@ export function LendingPage() {
   }
   return (
     <div className="flex h-screen w-full flex-col font-inter">
-      <div className="fixed flex h-[88px] w-full items-center justify-around border-b border-black bg-neutral-900 py-6 shadow-lg">
+      <div className="fixed z-30 flex h-[88px] w-full items-center justify-around border-b border-black bg-neutral-900 py-6 shadow-lg">
         <h2>Brand Name</h2>
-        <div className="grid grid-cols-3 gap-1 rounded-lg bg-neutral-10 bg-opacity-50 p-1 text-base font-bold">
+        <div className="bg-neutral-1000 grid grid-cols-3 gap-1 rounded-lg bg-opacity-50 p-1 text-base font-bold">
           <button type="button" className="rounded bg-neutral-700 px-4 py-2">
             Lending
           </button>
@@ -51,18 +61,40 @@ export function LendingPage() {
             Credit Card <IoLockClosed />
           </button>
         </div>
-        <div>Rafly Zaki</div>
+        <button
+          type="button"
+          ref={openRef}
+          onClick={() => setOpen(!open)}
+          className="hover:bg-eneutral-400 relative cursor-pointer rounded-lg px-5 py-3"
+        >
+          Rafly Zaki
+          {open && (
+            <div className="absolute left-0 z-[9999] mt-3 flex flex-col gap-3 rounded-lg bg-eneutral-300 px-5 py-2 text-sm font-medium">
+              <p key="Dasboard" className="cursor-pointer text-neutral-500 hover:text-white">
+                Dashboard
+              </p>
+              <button
+                key="Logout"
+                type="button"
+                onClick={() => HandleLogout(session?.user?.refreshToken)}
+                className=" hover:text-error-500 text-credit-600 flex w-[90px] flex-row items-center gap-2"
+              >
+                <IoLogOutOutline className="h-5 w-5 text-xl" /> Log Out
+              </button>
+            </div>
+          )}
+        </button>
       </div>
       <div className="flex h-screen w-full items-center justify-center gap-12 bg-neutral-900 pt-11">
         <div className="flex h-4/5 w-4/5 justify-center gap-12">
-          <div className="w-[30%] overflow-y-scroll rounded-[20px] bg-neutral-10 bg-opacity-50 px-5 py-6 scrollbar-hide">
+          <div className="bg-neutral-1000 w-[30%] overflow-y-scroll rounded-[20px] bg-opacity-50 px-5 py-6 scrollbar-hide">
             <p className="my-4 text-base font-bold text-neutral-500">Question to fills</p>
             <Steps current={currentQuestions} items={Question} />
             <p className="my-4 text-base font-bold text-neutral-500">Suggestion outcome</p>
             <Steps current={1} items={Result} />
           </div>
-          <div className="relative flex w-[70%] flex-col gap-3 pb-[60px]">
-            <div className="flex h-full w-full flex-col gap-3 overflow-y-scroll pb-10 pr-2">
+          <button type="button" className="relative z-10 flex w-[70%] flex-col gap-3 pb-[60px]">
+            <div className="z-10 flex h-full w-full flex-col gap-3 overflow-y-scroll pb-10 pr-2">
               {QuestionDetail.map((item, index) => {
                 if (index <= currentQuestions) {
                   return (
@@ -185,7 +217,7 @@ export function LendingPage() {
                 </button>
               </div>
             </div>
-          </div>
+          </button>
         </div>
       </div>
     </div>
