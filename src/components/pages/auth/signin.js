@@ -1,26 +1,29 @@
-import { Button, Checkbox, Flex, Form, Input, Space, Typography } from 'antd'
+import { Flex, Form, Input, Space, Typography } from 'antd'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 
+import { Button } from '@/components/elements'
+
 export function LoginForm() {
+  const router = useRouter()
   const onFinish = async (e) => {
     try {
       const res = await signIn('credentials', {
         redirect: false,
         email: e.email,
         password: e.password,
-        // callbackUrl, // redirect url
       })
       if (!res?.error) {
-        console.log('ERR')
+        router.refresh()
       }
     } catch (err) {
-      console.log(err)
+      throw Error.message(err)
     }
   }
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
+    throw Error.message('Failed:', errorInfo)
   }
   const [form] = Form.useForm()
   return (
@@ -54,22 +57,8 @@ export function LoginForm() {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item name="remember" valuePropName="checked">
-          <Checkbox className="font-inter">Remeber Me</Checkbox>
-        </Form.Item>
-
         <Form.Item>
-          <Button
-            className="font-inter"
-            type="primary"
-            shape="round"
-            size="large"
-            htmlType="submit"
-            style={{
-              width: '200px',
-              height: '48px',
-            }}
-          >
+          <Button type="submit" htmlType="submit">
             Log In
           </Button>
         </Form.Item>
@@ -77,7 +66,7 @@ export function LoginForm() {
       <Space direction="horizontal">
         <Typography.Text className="font-inter">Don’t have an Account?</Typography.Text>
         <Link href="/signup">
-          <Typography.Text className="font-inter" strong>
+          <Typography.Text className="text-bluey-500 font-inter" strong>
             Register
           </Typography.Text>
         </Link>

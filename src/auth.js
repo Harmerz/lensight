@@ -96,7 +96,7 @@ export const options = {
       return token
     },
     async session({ session, token }) {
-      // console.log(session)
+      // console.log(session, token)
 
       return {
         ...session,
@@ -105,6 +105,7 @@ export const options = {
           username: token.username,
           role: token.role,
           accessToken: token.accessToken,
+          refreshToken: token.refreshToken,
         },
       }
     },

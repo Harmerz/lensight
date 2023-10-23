@@ -1,5 +1,7 @@
-import { Button, Checkbox, Flex, Form, Input, Space, Typography } from 'antd'
+import { Flex, Form, Input, Space, Typography } from 'antd'
 import Link from 'next/link'
+
+import { Button } from '@/components/elements'
 
 export function RegisterForm() {
   const onFinish = (values) => {
@@ -39,29 +41,16 @@ export function RegisterForm() {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item name="remember" valuePropName="checked">
-          <Checkbox>Remeber Me</Checkbox>
-        </Form.Item>
-
         <Form.Item>
-          <Button
-            type="primary"
-            shape="round"
-            size="large"
-            htmlType="submit"
-            style={{
-              width: '200px',
-              height: '48px',
-            }}
-          >
-            Log In
-          </Button>
+          <Button type="submit">Register</Button>
         </Form.Item>
       </Form>
       <Space direction="horizontal">
         <Typography.Text>Don’t have an Account?</Typography.Text>
-        <Link href="/signup">
-          <Typography.Text strong>Register</Typography.Text>
+        <Link href="/signin">
+          <Typography.Text className="text-bluey-500 font-inter" strong>
+            Log In
+          </Typography.Text>
         </Link>
       </Space>
     </Flex>
