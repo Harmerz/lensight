@@ -50,8 +50,8 @@ export const QuestionDetail = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus.',
   },
   {
-    title: 'Tell us your story!',
-    question: 'Do you have any Income Statement or any Financial Report? Upload it!',
+    title: 'Question 6',
+    question: 'Tell us your story!',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus.',
   },

@@ -18,6 +18,7 @@ export function RegisterForm() {
       <Typography.Text type="secondary">
         Start your journey with us. Register now to explore a world of possibilities.
       </Typography.Text>
+      x
       <Form
         form={form}
         layout="vertical"
@@ -48,7 +49,7 @@ export function RegisterForm() {
       <Space direction="horizontal">
         <Typography.Text>Don’t have an Account?</Typography.Text>
         <Link href="/signin">
-          <Typography.Text className="text-bluey-500 font-inter" strong>
+          <Typography.Text className="font-inter text-bluey-500" strong>
             Log In
           </Typography.Text>
         </Link>

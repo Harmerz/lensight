@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export function QuestionCard({ question, description, title }) {
   return (
-    <div className=" bg-neutral-1000 z-10 flex h-fit flex-row gap-5 rounded-2xl bg-opacity-50 p-5 text-start">
+    <div className=" z-10 flex h-fit flex-row gap-5 rounded-2xl bg-neutral-1000 bg-opacity-50 p-5 text-start">
       <div className="flex h-6 w-6 rounded">
         <Image src="/assets/logo.png" alt="Logo" width={24} height={24} />
       </div>
