@@ -43,6 +43,7 @@ export const options = {
             accessToken: data.accessToken,
             refreshToken: data.refreshToken,
             accessTokenExpires: Date.now() + ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS,
+            verify: data.isVerified,
           }
         } catch (err) {
           // console.log(err)
@@ -70,6 +71,7 @@ export const options = {
     },
     async jwt({ token, user }) {
       // Initial sign in
+      // console.log(token, user)
 
       if (user) {
         return {
@@ -79,7 +81,6 @@ export const options = {
           accessToken: user.accessToken,
           accessTokenExpires: user.accessTokenExpires,
           refreshToken: user.refreshToken,
-          bridgeStatus: user.bridgeStatus,
         }
       }
       if (
@@ -96,7 +97,7 @@ export const options = {
       return token
     },
     async session({ session, token }) {
-      // console.log(session, token)
+      console.log(session, token)
 
       return {
         ...session,
