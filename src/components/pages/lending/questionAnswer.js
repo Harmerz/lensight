@@ -102,6 +102,21 @@ export function QuestionAnswer5({ answer, setCurrentQuestion }) {
   useEffect(() => {
     localStorage.setItem('have', know)
   }, [know, setCurrentQuestion])
+  const handleClick = () => {
+    const answerUserList = JSON?.parse(localStorage.getItem('AnswerUserList')) ?? []
+    localStorage.setItem(
+      'AnswerUserList',
+      JSON.stringify([
+        ...answerUserList,
+        {
+          number: 4,
+          title: QuestionDetail[4].title,
+          question: QuestionDetail[4].question,
+          answer: know,
+        },
+      ]),
+    )
+  }
   return (
     <div className="flex w-full flex-col gap-3">
       <QuestionCard
@@ -121,7 +136,7 @@ export function QuestionAnswer5({ answer, setCurrentQuestion }) {
             <button
               type="button"
               className="h-9 w-40 rounded-full border border-white bg-transparent px-6 py-2 text-neutral-500"
-              onClick={() => [setKnow('no'), setCurrentQuestion(5)]}
+              onClick={() => [setKnow('no'), setCurrentQuestion(5), handleClick()]}
             >
               No, I don’t have
             </button>
@@ -134,7 +149,7 @@ export function QuestionAnswer5({ answer, setCurrentQuestion }) {
                 id="input-file"
                 type="file"
                 className="hidden"
-                onChange={(e) => console.log(e)}
+                onChange={(e) => [console.log(e), handleClick()]}
               />
             </label>
           </div>

@@ -1,11 +1,13 @@
 'use client'
 
+import axios from 'axios'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
 import { IoLockClosed, IoLogOutOutline, IoSend } from 'react-icons/io5'
 
 import { Steps } from '@/components/elements'
+import QuestionCard from '@/components/elements/questionCard'
 import { HandleLogout } from '@/components/pages/auth'
 import {
   QuestionAnswer1,
@@ -15,8 +17,8 @@ import {
   QuestionAnswer5,
   QuestionAnswer6,
 } from '@/components/pages/lending'
+import { useNewQuestions, useQuestions } from '@/hooks/question'
 import { Question, QuestionDetail, Result } from '@/utils/const'
-import QuestionCard from '@/components/elements/questionCard'
 
 export function LendingPage() {
   const { data: session } = useSession()
@@ -52,6 +54,40 @@ export function LendingPage() {
     setAnswerUser('')
     setCurrentQuestion(currentQuestions + 1)
   }
+
+  const [questionId, setQuestionId] = useState(localStorage.getItem('questionId') ?? '')
+
+  const { mutate: NewQuestion, data } = useNewQuestions()
+  const { mutate: enterQuestion, isError } = useQuestions()
+  const [proceed, setProceed] = useState(false)
+
+  useEffect(() => {
+    if (questionId === '' || !questionId) setQuestionId(localStorage.getItem('questionId') ?? '')
+    if (questionId === '' || !questionId) {
+      NewQuestion()
+      setQuestionId(data)
+    }
+    localStorage.setItem('questionId', questionId)
+  }, [NewQuestion, data, questionId, currentQuestions])
+
+  const handleRetry = () => {
+    setAnswerUser('')
+    setCurrentQuestion(0)
+    localStorage.removeItem('AnswerUserList')
+    localStorage.removeItem('know')
+    localStorage.removeItem('have')
+  }
+
+  const handleProceed = () => {
+    const answer = JSON?.parse(localStorage.getItem('AnswerUserList')) ?? []
+    enterQuestion({
+      id: questionId,
+      question: answer,
+    })
+    setProceed(true)
+    if (isError) console.log('error')
+  }
+
   return (
     <div className="flex h-screen w-full flex-col font-inter">
       <div className="fixed z-30 flex h-[88px] w-full items-center justify-around border-b border-black bg-neutral-900 py-6 shadow-lg">
@@ -106,7 +142,7 @@ export function LendingPage() {
         <div className="flex h-4/5 w-4/5 justify-center gap-12">
           <div className="w-[30%] overflow-y-scroll rounded-[20px] bg-neutral-1000 bg-opacity-50 px-5 py-6 scrollbar-hide">
             <p className="my-4 text-base font-bold text-neutral-500">Question to fills</p>
-            <Steps current={currentQuestions} items={Question} />
+            <Steps current={!proceed ? currentQuestions : 7} items={Question} />
             <p className="my-4 text-base font-bold text-neutral-500">Suggestion outcome</p>
             <Steps current={1} items={Result} />
           </div>
@@ -177,30 +213,35 @@ export function LendingPage() {
                     )}
                   />
                 )}
-                {currentQuestions >= 6 && (
-                  <div className="flex flex-row justify-between py-6">
-                    <div className="flex flex-col items-center justify-center">
-                      <p className="text-sm font-semibold text-white">
-                        Please answer by clicking the button
-                      </p>
-                      {/* <p className="text-xs text-neutral-500">(PDF, max 5MB)</p> */}
+                {(JSON?.parse(localStorage.getItem('AnswerUserList')) ?? []).find(
+                  (e) => e.title === 'Question 6',
+                ) &&
+                  !proceed && (
+                    <div className="flex flex-row justify-between py-6">
+                      <div className="flex flex-col items-center justify-center">
+                        <p className="text-sm font-semibold text-white">
+                          Ready to see the suggestion outcome?
+                        </p>
+                        {/* <p className="text-xs text-neutral-500">(PDF, max 5MB)</p> */}
+                      </div>
+                      <div className="flex flex-row gap-5 text-sm font-semibold">
+                        <button
+                          type="button"
+                          className="h-9 w-40 rounded-full border border-white bg-transparent px-6 py-2 text-neutral-500"
+                          onClick={handleRetry}
+                        >
+                          No, Retry
+                        </button>
+                        <button
+                          type="button"
+                          className="h-9 w-40 rounded-full border bg-blue-500 px-6 py-2 text-white"
+                          onClick={handleProceed}
+                        >
+                          Yes, Proceed
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex flex-row gap-5 text-sm font-semibold">
-                      <button
-                        type="button"
-                        className="h-9 w-40 rounded-full border border-white bg-transparent px-6 py-2 text-neutral-500"
-                      >
-                        No, Retry
-                      </button>
-                      <button
-                        type="button"
-                        className="h-9 w-40 rounded-full border bg-blue-500 px-6 py-2 text-white"
-                      >
-                        Yes, Proceed
-                      </button>
-                    </div>
-                  </div>
-                )}
+                  )}
               </div>
             </div>
             <div className="absolute bottom-0 flex h-[60px] w-full flex-row gap-5">

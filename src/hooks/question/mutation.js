@@ -14,7 +14,24 @@ export const useQuestions = () => {
       const res = await axios.post('/api/question', data, {
         headers,
       })
-      return res?.data?.data
+      return res?.data
+    },
+  })
+}
+
+export const useNewQuestions = () => {
+  const { accessToken, headers } = useAccessToken()
+
+  return useApiMutation2({
+    queryKey: ['questions'],
+    mutationFun: async (_, data) => {
+      if (!accessToken) {
+        return null
+      }
+      const res = await axios.post('/api/question-new', data, {
+        headers,
+      })
+      return res?.data
     },
   })
 }
