@@ -1,6 +1,10 @@
 'use client'
 
+export * from './buisness'
+export * from './education'
 export * from './layout'
 export * from './logout'
+export * from './personal'
+export * from './photo'
 export * from './signin'
 export * from './signup'

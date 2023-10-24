@@ -10,6 +10,7 @@ export async function refreshAccessToken(refreshToken) {
     const newAccessToken = result.data.accessToken
     return newAccessToken
   } catch (err) {
+    console.log('RefreshAccessTokenError : ', err.message)
     return 'RefreshAccessTokenError'
   }
 }

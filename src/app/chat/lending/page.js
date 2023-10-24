@@ -62,6 +62,7 @@ export function LendingPage() {
   const [proceed, setProceed] = useState(false)
 
   useEffect(() => {
+    console.log(questionId)
     if (questionId === '' || !questionId) setQuestionId(localStorage.getItem('questionId') ?? '')
     if (questionId === '' || !questionId) {
       NewQuestion()

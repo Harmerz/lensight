@@ -102,3 +102,18 @@ export const Result = [
     description: 'Chosen place direction',
   },
 ]
+
+export const Register = [
+  {
+    title: 'Personal Information',
+  },
+  {
+    title: 'Education and Occupation Information',
+  },
+  {
+    title: 'Business and Financial Information',
+  },
+  {
+    title: 'Photo and Financial Report Documents',
+  },
+]
