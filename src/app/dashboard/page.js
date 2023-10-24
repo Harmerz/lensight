@@ -16,7 +16,7 @@ export function DashboardPage() {
         </div>
         <button
           type="button"
-          className="bg-bluex-400 flex flex-row items-center gap-2 rounded-lg px-4 py-3 font-inter text-base font-semibold text-white"
+          className="flex flex-row items-center gap-2 rounded-lg bg-bluex-400 px-4 py-3 font-inter text-base font-semibold text-white"
         >
           <AiFillBank className="h-5 w-5" />
           Lending

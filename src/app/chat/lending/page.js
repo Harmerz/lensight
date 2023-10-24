@@ -1,6 +1,5 @@
 'use client'
 
-import axios from 'axios'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
@@ -62,7 +61,6 @@ export function LendingPage() {
   const [proceed, setProceed] = useState(false)
 
   useEffect(() => {
-    console.log(questionId)
     if (questionId === '' || !questionId) setQuestionId(localStorage.getItem('questionId') ?? '')
     if (questionId === '' || !questionId) {
       NewQuestion()

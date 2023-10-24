@@ -17,14 +17,14 @@ export function LendingList() {
           </Button>
         </Link>
       </div>
-      <div className="bg-neutral-1000 mt-5 flex w-full gap-5 rounded-t-xl px-6 py-5 font-inter text-sm font-bold">
+      <div className="mt-5 flex w-full gap-5 rounded-t-xl bg-neutral-1000 px-6 py-5 font-inter text-sm font-bold">
         <div className="w-4" />
         <div className="flex grow flex-row justify-between">
           <div>Place Name</div>
           <div>Date Promted</div>
         </div>
       </div>
-      <form className="border-neutral-1000 flex grow flex-col rounded-b-xl border-2 bg-eneutral-100">
+      <form className="flex grow flex-col rounded-b-xl border-2 border-neutral-1000 bg-eneutral-100">
         <div className="flex max-h-[48px] w-full flex-row items-center gap-5 px-6 py-3 text-sm text-neutral-300">
           <input type="radio" />
           <div className="flex grow flex-row justify-between">

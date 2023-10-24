@@ -26,7 +26,7 @@ export default function Home() {
           </Link>
           <Link
             href="/signup"
-            className="text-bluez-850 font-sm rounded-full bg-white px-6 py-2 font-inter font-semibold"
+            className="font-sm rounded-full bg-white px-6 py-2 font-inter font-semibold text-bluez-850"
           >
             Register
           </Link>
@@ -37,7 +37,7 @@ export default function Home() {
           <h1 className="font-dmsans text-[60px] font-bold text-white">
             AI-Driven Credit Risk & Insurance Management
           </h1>
-          <h2 className="text-bluex-100 font-inter text-base">
+          <h2 className="font-inter text-base text-bluex-100">
             Elevate your credit risk & insurance management with our AI-powered solutions. Make
             informed, lightning-fast decisions with our enhanced policy templates and streamline
             your financial strategy.
