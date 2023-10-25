@@ -26,7 +26,7 @@ export const useVerifyEmail = () => {
   return useApiMutation2({
     queryKey: ['questions'],
     mutationFun: async (_, data) => {
-      const res = await axios.post('/auth/email-verify', data, {
+      const res = await axios.post('/auth/verify-email', data, {
         headers,
       })
       return res?.data
