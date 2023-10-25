@@ -84,6 +84,7 @@ export function LendingPage() {
       question: answer,
     })
     setProceed(true)
+    // eslint-disable-next-line no-console
     if (isError) console.log('error')
   }
 

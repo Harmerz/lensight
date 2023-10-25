@@ -13,7 +13,7 @@ export function PhotoForm() {
       await SendUserInfo({
         finansial: values,
       })
-      router.push('/lending')
+      router.push('/chat/lending')
     } catch (err) {
       console.log(err)
     }

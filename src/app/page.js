@@ -32,21 +32,24 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <div className="flex w-4/5 flex-row items-center justify-center">
-        <div className="flex flex-col gap-6">
+      <div className="flex w-4/5 flex-row items-center justify-center gap-[48px]">
+        <div className="flex w-1/2 flex-col gap-6">
           <h1 className="font-dmsans text-[60px] font-bold text-white">
-            AI-Driven Credit Risk & Insurance Management
+            AI-Driven Credit <div>Risk & Insurance</div> Management
           </h1>
-          <h2 className="font-inter text-base text-bluex-100">
-            Elevate your credit risk & insurance management with our AI-powered solutions. Make
-            informed, lightning-fast decisions with our enhanced policy templates and streamline
-            your financial strategy.
+          <h2 className="line-clamp-3 font-inter text-base text-bluex-100 text-opacity-40">
+            Elevate your credit risk & insurance management with our AI-powered
+            <div>solutions. Make informed, lightning-fast decisions with our enhanced</div>
+            policy templates and streamline your financial strategy.
           </h2>
           <Link href="/signup">
             <Button type="button">
               Get Started <IoArrowForwardOutline className=" inline-flex h-5 w-5" />
             </Button>
           </Link>
+        </div>
+        <div className="relative flex aspect-[980/1052] w-1/2 max-w-[560px]">
+          <Image src="/assets/landing-hero.png" alt="hero" fill />
         </div>
       </div>
     </main>
