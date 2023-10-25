@@ -1,5 +1,6 @@
 import { Flex, Form, Input, message, Space, Typography } from 'antd'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 import { Button } from '@/components/elements'
 import { useSignUp } from '@/hooks/user'
@@ -7,6 +8,7 @@ import { useSignUp } from '@/hooks/user'
 export function RegisterForm() {
   const [messageApi, contextHolder] = message.useMessage()
   const { mutate: SignUp, data, isError } = useSignUp()
+  const router = useRouter()
 
   const success = (succ) => {
     messageApi.open({
@@ -24,14 +26,18 @@ export function RegisterForm() {
 
   localStorage.removeItem('values')
   localStorage.removeItem('date')
-
-  const onFinish = (values) => {
-    SignUp(values)
-    success(data)
-    const date = new Date()
-    localStorage.setItem('values', values)
-    localStorage.setItem('date', date)
-
+  const onFinish = async (values) => {
+    try {
+      SignUp(values)
+      success(data.message)
+      localStorage.setItem('values', values)
+      const date = new Date()
+      localStorage.setItem('date', date)
+      router.push('/need-verify')
+      router.refresh()
+    } catch (err) {
+      console.log(err)
+    }
     if (isError) error(data)
   }
 
@@ -47,7 +53,7 @@ export function RegisterForm() {
         <Typography.Text type="secondary">
           Start your journey with us. Register now to explore a world of possibilities.
         </Typography.Text>
-        x
+
         <Form
           form={form}
           layout="vertical"

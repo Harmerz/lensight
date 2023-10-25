@@ -1,6 +1,5 @@
 import { Card } from 'antd'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
 
 import { StepsRegister } from '@/components/elements'
 import { Register } from '@/utils/const'
