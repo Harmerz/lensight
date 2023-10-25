@@ -33,3 +33,31 @@ export const useVerifyEmail = () => {
     },
   })
 }
+
+export const useSignUp = () => {
+  const { headers } = useAccessToken()
+
+  return useApiMutation2({
+    queryKey: ['questions'],
+    mutationFun: async (_, data) => {
+      const res = await axios.post('/auth/signup', data, {
+        headers,
+      })
+      return res?.data
+    },
+  })
+}
+
+export const useResendEmail = () => {
+  const { headers } = useAccessToken()
+
+  return useApiMutation2({
+    queryKey: ['questions'],
+    mutationFun: async (_, data) => {
+      const res = await axios.post('/auth/resend-verify', data, {
+        headers,
+      })
+      return res?.data
+    },
+  })
+}

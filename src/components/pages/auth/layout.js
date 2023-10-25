@@ -6,7 +6,6 @@ import { StepsRegister } from '@/components/elements'
 import { Register } from '@/utils/const'
 
 export function LayoutAuth({ children, step }) {
-  const pathname = usePathname()
   return (
     <div
       className="flex h-[100vh] w-[100vw] flex-row justify-around"
@@ -16,7 +15,7 @@ export function LayoutAuth({ children, step }) {
       }}
     >
       <div className="flex w-2/3 items-center justify-center">
-        {pathname === 'signin' || pathname === 'register' ? (
+        {!step ? (
           <Image src="/assets/auth/Auth.png" alt="Auth Image" width={572} height={456} />
         ) : (
           <div>
