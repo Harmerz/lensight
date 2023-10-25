@@ -29,7 +29,7 @@ export function RegisterForm() {
   const onFinish = async (values) => {
     try {
       SignUp(values)
-      success(data.message)
+      success(data?.message)
       localStorage.setItem('values', values)
       const date = new Date()
       localStorage.setItem('date', date)
