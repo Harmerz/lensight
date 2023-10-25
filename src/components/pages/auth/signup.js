@@ -24,15 +24,15 @@ export function RegisterForm() {
     })
   }
 
-  localStorage.removeItem('values')
-  localStorage.removeItem('date')
+  // localStorage.removeItem('values')
+  // localStorage.removeItem('date')
   const onFinish = async (values) => {
     try {
+      const date = new Date()
+      localStorage.setItem('values', JSON.stringify(values))
+      localStorage.setItem('date', JSON.stringify(date))
       SignUp(values)
       success(data?.message)
-      localStorage.setItem('values', values)
-      const date = new Date()
-      localStorage.setItem('date', date)
       router.push('/need-verify')
       router.refresh()
     } catch (err) {

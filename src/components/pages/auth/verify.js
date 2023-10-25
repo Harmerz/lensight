@@ -6,15 +6,15 @@ import { IoArrowBack } from 'react-icons/io5'
 import { useResendEmail } from '@/hooks/user'
 
 export function VerifyForm() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('value') ?? '') ?? {})
+  const [user, setUser] = useState(JSON?.parse(localStorage?.getItem('values') ?? '{}') ?? {})
   const { mutate: resedEmail } = useResendEmail({ user })
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('value')))
+    setUser(JSON?.parse(localStorage?.getItem('values') ?? '{}') ?? {})
   }, [])
 
   const handleResend = () => {
     resedEmail({
-      email: user.email,
+      email: user?.email,
     })
   }
 
@@ -29,9 +29,10 @@ export function VerifyForm() {
         <p className="text-base font-bold text-neutral-700">Didn&apos;t receive the email? </p>
         <button
           type="button"
-          className="text-base font-bold text-bluey-500"
+          className="ml-1 text-base font-bold text-bluey-500"
           onClick={() => handleResend()}
         >
+          {' '}
           Resend Email Verification
         </button>
       </div>
