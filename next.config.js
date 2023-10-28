@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  // output: 'standalone',
   // images: {
   //   loader: 'custom',
   //   path: 'http://delightful-dune-098450410.4.azurestaticapps.net',

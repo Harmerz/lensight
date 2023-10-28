@@ -3,11 +3,15 @@ import { NextResponse } from 'next/server'
 import { authMiddleware, publicMiddleware } from './middlewares'
 
 export default async function middleware(req) {
+  console.log('Public')
+
   const resPub = await publicMiddleware(req)
   if (resPub) return resPub
+  console.log('Auth')
 
   const resAuth = await authMiddleware(req)
   if (!resAuth.ok) return resAuth
+  console.log(req)
   return NextResponse.next()
 }
 
