@@ -38,7 +38,7 @@ export const options = {
           return {
             id: user.data.id,
             email: user.data.email,
-            name: user.data.name,
+            name: user.data.name ?? '',
             role: user.data.roles[0],
             accessToken: data.accessToken,
             refreshToken: data.refreshToken,
@@ -66,6 +66,7 @@ export const options = {
   },
   callbacks: {
     async signIn({ user }) {
+      console.log(user)
       if (user) return true
       return false
     },
@@ -97,8 +98,6 @@ export const options = {
       return token
     },
     async session({ session, token }) {
-      console.log(session, token)
-
       return {
         ...session,
         user: {

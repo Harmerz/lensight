@@ -16,7 +16,7 @@ import {
   QuestionAnswer5,
   QuestionAnswer6,
 } from '@/components/pages/lending'
-import { useNewQuestions, useQuestions } from '@/hooks/question'
+import { useNewQuestions, useProcessQuestions, useQuestions } from '@/hooks/question'
 import { Question, QuestionDetail, Result } from '@/utils/const'
 
 export function LendingPage() {
@@ -57,17 +57,24 @@ export function LendingPage() {
   const [questionId, setQuestionId] = useState(localStorage.getItem('questionId') ?? '')
 
   const { mutate: NewQuestion, data } = useNewQuestions()
-  const { mutate: enterQuestion, isError } = useQuestions()
+  const { mutate: enterQuestion, isError, data: enter } = useQuestions()
+  const { mutate: processQuestion } = useProcessQuestions()
   const [proceed, setProceed] = useState(false)
 
   useEffect(() => {
     if (questionId === '' || !questionId) setQuestionId(localStorage.getItem('questionId') ?? '')
     if (questionId === '' || !questionId) {
       NewQuestion()
-      setQuestionId(data)
+      setQuestionId(data?.questionId ?? '')
     }
     localStorage.setItem('questionId', questionId)
   }, [NewQuestion, data, questionId, currentQuestions])
+  useEffect(() => {
+    if (enter)
+      processQuestion({
+        questionId,
+      })
+  }, [enter, processQuestion, questionId])
 
   const handleRetry = () => {
     setAnswerUser('')
@@ -83,6 +90,7 @@ export function LendingPage() {
       id: questionId,
       question: answer,
     })
+
     setProceed(true)
     // eslint-disable-next-line no-console
     if (isError) console.log('error')
@@ -146,7 +154,7 @@ export function LendingPage() {
             <p className="my-4 text-base font-bold text-neutral-500">Suggestion outcome</p>
             <Steps current={1} items={Result} />
           </div>
-          <button type="button" className="relative z-10 flex w-[70%] flex-col gap-3 pb-[60px]">
+          <div className="relative z-10 flex w-[70%] flex-col gap-3 pb-[60px]">
             <div className="z-10 flex h-full w-full flex-col gap-3 overflow-y-scroll pb-10 pr-2">
               <div className="flex w-full flex-col gap-3">
                 <QuestionCard
@@ -261,7 +269,7 @@ export function LendingPage() {
                 </button>
               </div>
             </div>
-          </button>
+          </div>
         </div>
       </div>
     </div>

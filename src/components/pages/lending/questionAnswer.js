@@ -1,7 +1,9 @@
+import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
 import AnswerCard from '@/components/elements/answerCard'
 import QuestionCard from '@/components/elements/questionCard'
+import { useOCRQuestions } from '@/hooks/question'
 import { QuestionDetail } from '@/utils/const'
 
 export function QuestionAnswer1({ answer }) {
@@ -11,6 +13,7 @@ export function QuestionAnswer1({ answer }) {
         title={QuestionDetail[0].title}
         description={QuestionDetail[0].description}
         question={QuestionDetail[0].question}
+        example={QuestionDetail[0].example}
       />
       {answer && <AnswerCard answer={answer.answer} />}
     </div>
@@ -24,6 +27,7 @@ export function QuestionAnswer2({ answer }) {
         title={QuestionDetail[1].title}
         description={QuestionDetail[1].description}
         question={QuestionDetail[1].question}
+        example={QuestionDetail[1].example}
       />
       {answer && <AnswerCard answer={answer.answer} />}
     </div>
@@ -37,6 +41,7 @@ export function QuestionAnswer3({ answer }) {
         title={QuestionDetail[2].title}
         description={QuestionDetail[2].description}
         question={QuestionDetail[2].question}
+        example={QuestionDetail[2].example}
       />
       {answer && <AnswerCard answer={answer.answer} />}
     </div>
@@ -48,6 +53,7 @@ export function QuestionAnswer4({ answer }) {
   useEffect(() => {
     localStorage.setItem('know', know)
   }, [know])
+
   return (
     <div className="flex w-full flex-col gap-3">
       <QuestionCard
@@ -84,6 +90,7 @@ export function QuestionAnswer4({ answer }) {
         <QuestionCard
           description={QuestionDetail[3].childern.yes.description}
           question={QuestionDetail[3].childern.yes.question}
+          example={QuestionDetail[3].childern.yes.example}
         />
       )}
       {know === 'no' && (
@@ -97,26 +104,28 @@ export function QuestionAnswer4({ answer }) {
   )
 }
 
-export function QuestionAnswer5({ answer, setCurrentQuestion }) {
+export function QuestionAnswer5({ setCurrentQuestion }) {
   const [know, setKnow] = useState(localStorage.getItem('have') ?? '')
+  const [fileName, setFileName] = useState(localStorage.getItem('filename') ?? '')
+
+  const { data: session } = useSession()
   useEffect(() => {
     localStorage.setItem('have', know)
+    localStorage.setItem('filename', fileName)
+  }, [know, fileName])
+  useEffect(() => {
+    if (know !== '') setCurrentQuestion(5)
   }, [know, setCurrentQuestion])
-  const handleClick = () => {
-    const answerUserList = JSON?.parse(localStorage.getItem('AnswerUserList')) ?? []
-    localStorage.setItem(
-      'AnswerUserList',
-      JSON.stringify([
-        ...answerUserList,
-        {
-          number: 4,
-          title: QuestionDetail[4].title,
-          question: QuestionDetail[4].question,
-          answer: know,
-        },
-      ]),
-    )
+  const { mutate: UploadFile } = useOCRQuestions()
+  const handleUpload = (e) => {
+    const form = new FormData()
+    form.append('email', session?.user?.email ?? '')
+    form.append('questionId', localStorage?.getItem('questionId') ?? '')
+    form.append('file', e.target.files[0])
+    setFileName(e.target.files[0].name)
+    UploadFile(form)
   }
+
   return (
     <div className="flex w-full flex-col gap-3">
       <QuestionCard
@@ -149,14 +158,14 @@ export function QuestionAnswer5({ answer, setCurrentQuestion }) {
                 id="input-file"
                 type="file"
                 className="hidden"
-                onChange={(e) => [console.log(e), handleClick()]}
+                onChange={(e) => [setKnow('yes'), handleUpload(e), handleClick()]}
               />
             </label>
           </div>
         </div>
       )}
       {know === 'no' && <AnswerCard answer="No, I don't have it" />}
-      {answer && <AnswerCard answer={answer.answer} />}
+      {know === 'yes' && <AnswerCard answer={fileName} />}
     </div>
   )
 }

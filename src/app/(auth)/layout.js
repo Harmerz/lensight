@@ -8,7 +8,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <div lang="en">
-      <duv className="h-full w-full">{children}</duv>
+      <div className="h-full w-full">{children}</div>
     </div>
   )
 }

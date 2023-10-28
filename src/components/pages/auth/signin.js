@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 
 import { Button } from '@/components/elements'
+import { axios } from '@/lib/axios'
 
 export function LoginForm() {
   const router = useRouter()
@@ -21,6 +22,7 @@ export function LoginForm() {
       throw Error.message(err)
     }
   }
+  axios.get('/ping').then((res) => console.log(res))
 
   const onFinishFailed = (errorInfo) => {
     throw Error.message('Failed:', errorInfo)
@@ -66,7 +68,7 @@ export function LoginForm() {
       <Space direction="horizontal">
         <Typography.Text className="font-inter">Don’t have an Account?</Typography.Text>
         <Link href="/signup">
-          <Typography.Text className="text-bluey-500 font-inter" strong>
+          <Typography.Text className="font-inter text-bluey-500" strong>
             Register
           </Typography.Text>
         </Link>

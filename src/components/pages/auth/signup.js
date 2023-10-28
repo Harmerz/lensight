@@ -82,7 +82,7 @@ export function RegisterForm() {
           </Form.Item>
         </Form>
         <Space direction="horizontal">
-          <Typography.Text>Don’t have an Account?</Typography.Text>
+          <Typography.Text>Already have an Account?</Typography.Text>
           <Link href="/signin">
             <Typography.Text className="font-inter text-bluey-500" strong>
               Log In
