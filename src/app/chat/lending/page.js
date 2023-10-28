@@ -57,7 +57,7 @@ export function LendingPage() {
   const [questionId, setQuestionId] = useState(localStorage.getItem('questionId') ?? '')
 
   const { mutate: NewQuestion, data } = useNewQuestions()
-  const { mutate: enterQuestion, isError, data: enter } = useQuestions()
+  const { mutate: enterQuestion, data: enter } = useQuestions()
   const { mutate: processQuestion } = useProcessQuestions()
   const [proceed, setProceed] = useState(false)
 
@@ -92,8 +92,6 @@ export function LendingPage() {
     })
 
     setProceed(true)
-    // eslint-disable-next-line no-console
-    if (isError) console.log('error')
   }
 
   return (
