@@ -15,7 +15,6 @@ export const options = {
       },
       async authorize(credentials) {
         try {
-          console.log(process.env.NEXTAUTH_URL)
           const res = await axios.post(
             '/auth/signin',
             {
@@ -67,16 +66,11 @@ export const options = {
   },
   callbacks: {
     async signIn({ user }) {
-      console.log(user)
-      console.log(process.env.NEXTAUTH_URL)
-
       if (user) return true
       return false
     },
     async jwt({ token, user }) {
       // Initial sign in
-      console.log(token, user)
-      console.log(process.env.NEXTAUTH_URL)
 
       if (user) {
         return {

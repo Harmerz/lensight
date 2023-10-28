@@ -126,7 +126,7 @@ export function LendingPage() {
           onClick={() => setOpen(!open)}
           className="relative cursor-pointer rounded-lg px-5 py-3 hover:bg-eneutral-400"
         >
-          {session?.user?.name}
+          {session?.user?.name === '' ? session?.user?.email : session?.user?.name}
           {open && (
             <div className="absolute left-0 z-[9999] mt-3 flex flex-col gap-3 rounded-lg bg-eneutral-300 px-5 py-2 text-sm font-medium">
               <p key="Dasboard" className="cursor-pointer text-neutral-500 hover:text-white">

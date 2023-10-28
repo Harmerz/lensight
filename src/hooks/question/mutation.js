@@ -22,7 +22,6 @@ export const useQuestions = () => {
 
 export const useNewQuestions = () => {
   const { accessToken, headers } = useAccessToken()
-  console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
   return useApiMutation2({
     queryKey: ['questions'],
     mutationFun: async (_, data) => {
