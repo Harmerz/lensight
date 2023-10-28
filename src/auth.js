@@ -72,7 +72,7 @@ export const options = {
     },
     async jwt({ token, user }) {
       // Initial sign in
-      // console.log(token, user)
+      console.log(token, user)
 
       if (user) {
         return {
