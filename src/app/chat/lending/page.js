@@ -17,7 +17,11 @@ import {
   QuestionAnswer5,
   QuestionAnswer6,
 } from '@/components/pages/lending'
-import ResultAnswer1 from '@/components/pages/lending/resultAnswer'
+import {
+  ResultAnswer1,
+  ResultAnswer2,
+  ResultAnswer4,
+} from '@/components/pages/lending/resultAnswer'
 import { useNewQuestions, useProcessQuestions, useQuestions } from '@/hooks/question'
 import { Question, QuestionDetail, Result } from '@/utils/const'
 
@@ -110,6 +114,14 @@ export function LendingPage() {
     localStorage.setItem('Proses', true)
   }
 
+  // scroll down
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const elem = document.getElementById('chatbox')
+    elem.scrollTop = elem.scrollHeight
+  }, [ref, currentQuestions, currentResult])
+
   return (
     <div className="flex h-screen w-full flex-col font-inter">
       <div className="fixed z-30 flex h-[88px] w-full items-center justify-around border-b border-black bg-neutral-900 py-6 shadow-lg">
@@ -169,7 +181,11 @@ export function LendingPage() {
             <Steps current={currentResult} items={Result} />
           </div>
           <div className="relative z-10 flex w-[70%] flex-col gap-3 pb-[60px]">
-            <div className="z-10 flex h-full w-full flex-col gap-3 overflow-y-scroll pb-10 pr-2">
+            <div
+              id="chatbox"
+              ref={ref}
+              className="z-10 flex h-full w-full flex-col gap-3 overflow-y-scroll pb-10 pr-2"
+            >
               <div className="flex w-full flex-col gap-3">
                 <QuestionCard
                   question="Our “Lending” Solution"
@@ -279,7 +295,19 @@ export function LendingPage() {
                     </div>
                   </div>
                 )}
-                {currentResult === 0 && <ResultAnswer1 />}
+                {currentResult >= 0 && (
+                  <ResultAnswer1
+                    setCurrentResult={setCurretResult}
+                    setCurrentQuestion={setCurrentQuestion}
+                  />
+                )}
+                {currentResult >= 1 && (
+                  <ResultAnswer2
+                    setCurrentResult={setCurretResult}
+                    setCurrentQuestion={setCurrentQuestion}
+                  />
+                )}
+                {currentResult >= 3 && <ResultAnswer4 />}
               </div>
             </div>
             <div className="absolute bottom-0 flex h-[60px] w-full flex-row gap-5">

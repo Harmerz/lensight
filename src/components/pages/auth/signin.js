@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 
 import { Button } from '@/components/elements'
-import { axios } from '@/lib/axios'
 
 export function LoginForm() {
   const router = useRouter()
@@ -22,7 +21,7 @@ export function LoginForm() {
       throw Error.message(err)
     }
   }
-  axios.get('/ping').then((res) => console.log(res))
+  // axios.get('/ping').then((res) => console.log(res))
 
   const onFinishFailed = (errorInfo) => {
     throw Error.message('Failed:', errorInfo)
