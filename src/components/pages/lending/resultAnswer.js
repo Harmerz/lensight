@@ -192,7 +192,7 @@ export function ResultAnswer2({ setCurrentResult }) {
           )}
           {localStorage.getItem('fill') && (
             <QuestionCard
-              title="Result 1"
+              title="Result 3"
               question="Dear users, feature currently not working"
               description={
                 <>

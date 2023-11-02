@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
-import { IoLockClosed, IoLogOutOutline, IoSend } from 'react-icons/io5'
+import { IoLockClosed, IoLogOutOutline, IoSend, IoTrash } from 'react-icons/io5'
 
 import { Steps } from '@/components/elements'
 import QuestionCard from '@/components/elements/questionCard'
@@ -82,6 +82,7 @@ export function LendingPage() {
   useEffect(() => {
     if (questions?.status) {
       setLoadingProceed(false)
+      setCurretResult(0)
     }
   }, [questions])
 
@@ -110,8 +111,20 @@ export function LendingPage() {
 
     setProceed(true)
     setLoadingProceed(true)
-    setCurretResult(0)
     localStorage.setItem('Proses', true)
+  }
+
+  const handleDelete = () => {
+    localStorage.removeItem('AnswerUserList')
+    localStorage.removeItem('know')
+    localStorage.removeItem('have')
+    localStorage.removeItem('Proses')
+    localStorage.removeItem('questionId')
+    localStorage.removeItem('fill')
+
+    setAnswerUser('')
+    setCurrentQuestion(0)
+    setCurretResult(-1)
   }
 
   // scroll down
@@ -311,6 +324,13 @@ export function LendingPage() {
               </div>
             </div>
             <div className="absolute bottom-0 flex h-[60px] w-full flex-row gap-5">
+              <button
+                type="button"
+                className="flex h-[60px] w-[60px] items-center justify-center rounded-2xl bg-eneutral-200"
+                onClick={() => handleDelete()}
+              >
+                <IoTrash className="h-6 w-6 text-credit-600" />
+              </button>
               <div className="relative h-[60px] w-full  rounded-2xl border border-eneutral-300 bg-eneutral-200">
                 <textarea
                   rows="1"
