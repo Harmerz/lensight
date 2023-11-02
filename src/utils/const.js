@@ -30,7 +30,7 @@ export const QuestionDetail = [
         question: 'Please, type what is your credit score right now',
         example: '720',
         description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus.',
+          'Enter your current credit score. This information helps us tailor lending options that match your creditworthiness.',
       },
       no: {
         question: 'Check your credit score right now',
@@ -51,13 +51,13 @@ export const QuestionDetail = [
     title: 'Question 5',
     question: 'Do you have any Income Statement or any Financial Report? Upload it!',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus.',
+      'If you have an Income Statement or Financial Report, please upload it here. Providing these documents can enhance your lending application.',
   },
   {
     title: 'Question 6',
     question: 'Tell us your story!',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus.',
+      'If you have an Income Statement or Financial Report, please upload it here. Providing these documents can enhance your lending application.',
   },
 ]
 
