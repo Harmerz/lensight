@@ -24,8 +24,6 @@ export function RegisterForm() {
     })
   }
 
-  // localStorage.removeItem('values')
-  // localStorage.removeItem('date')
   const onFinish = async (values) => {
     try {
       const date = new Date()
@@ -64,7 +62,7 @@ export function RegisterForm() {
           <Form.Item
             label="Email"
             name="email"
-            rules={[{ required: true, message: 'Please input your email!' }]}
+            rules={[{ required: true, message: 'Please input your email!', type: 'email' }]}
           >
             <Input />
           </Form.Item>
@@ -72,7 +70,15 @@ export function RegisterForm() {
           <Form.Item
             label="Password"
             name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[
+              { required: true, message: 'Please input your password!' },
+              {
+                pattern:
+                  /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!?#$%\-_=+<>])([a-zA-Z0-9!?#$%\-_=+<>]+)$/,
+                message: `Password should contain atleast one of number, capital, and special character`,
+              },
+              { min: 8, message: 'Username must be minimum 8 characters.' },
+            ]}
           >
             <Input.Password />
           </Form.Item>

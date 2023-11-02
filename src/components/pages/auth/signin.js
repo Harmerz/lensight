@@ -45,7 +45,7 @@ export function LoginForm() {
           className="font-inter"
           label="Email"
           name="email"
-          rules={[{ required: true, message: 'Please input your email!' }]}
+          rules={[{ required: true, message: 'Please input your email!', type: 'email' }]}
         >
           <Input />
         </Form.Item>

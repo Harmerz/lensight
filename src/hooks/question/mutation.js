@@ -14,7 +14,6 @@ export const useQuestions = () => {
       const res = await axios.post('/api/question', data, {
         headers,
       })
-      console.log(res)
       return res?.data
     },
   })
@@ -64,7 +63,7 @@ export const useProcessQuestions = () => {
       const res = await axios.post('/api/question-process', data, {
         headers,
       })
-      return res?.data
+      return res
     },
   })
 }

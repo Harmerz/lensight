@@ -145,7 +145,7 @@ export function QuestionAnswer5({ setCurrentQuestion }) {
             <button
               type="button"
               className="h-9 w-40 rounded-full border border-white bg-transparent px-6 py-2 text-neutral-500"
-              onClick={() => [setKnow('no'), setCurrentQuestion(5), handleClick()]}
+              onClick={() => [setKnow('no'), setCurrentQuestion(5)]}
             >
               No, I don’t have
             </button>
@@ -158,7 +158,7 @@ export function QuestionAnswer5({ setCurrentQuestion }) {
                 id="input-file"
                 type="file"
                 className="hidden"
-                onChange={(e) => [setKnow('yes'), handleUpload(e), handleClick()]}
+                onChange={(e) => [setKnow('yes'), handleUpload(e)]}
               />
             </label>
           </div>

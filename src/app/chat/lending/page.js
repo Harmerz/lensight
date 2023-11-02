@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { IoLockClosed, IoLogOutOutline, IoSend } from 'react-icons/io5'
 
 import { Steps } from '@/components/elements'
@@ -16,6 +17,7 @@ import {
   QuestionAnswer5,
   QuestionAnswer6,
 } from '@/components/pages/lending'
+import ResultAnswer1 from '@/components/pages/lending/resultAnswer'
 import { useNewQuestions, useProcessQuestions, useQuestions } from '@/hooks/question'
 import { Question, QuestionDetail, Result } from '@/utils/const'
 
@@ -55,11 +57,14 @@ export function LendingPage() {
   }
 
   const [questionId, setQuestionId] = useState(localStorage.getItem('questionId') ?? '')
+  // const [result, setResult] = useState()
 
   const { mutate: NewQuestion, data } = useNewQuestions()
   const { mutate: enterQuestion, data: enter } = useQuestions()
-  const { mutate: processQuestion } = useProcessQuestions()
-  const [proceed, setProceed] = useState(false)
+  const { mutate: processQuestion, data: questions } = useProcessQuestions()
+  const [proceed, setProceed] = useState(localStorage.getItem('Proses') ?? false)
+  const [loadingProceed, setLoadingProceed] = useState(false)
+  const [currentResult, setCurretResult] = useState(localStorage.getItem('Proses') ? 0 : -1)
 
   useEffect(() => {
     if (questionId === '' || !questionId) setQuestionId(localStorage.getItem('questionId') ?? '')
@@ -69,6 +74,13 @@ export function LendingPage() {
     }
     localStorage.setItem('questionId', questionId)
   }, [NewQuestion, data, questionId, currentQuestions])
+
+  useEffect(() => {
+    if (questions?.status) {
+      setLoadingProceed(false)
+    }
+  }, [questions])
+
   useEffect(() => {
     if (enter)
       processQuestion({
@@ -82,8 +94,9 @@ export function LendingPage() {
     localStorage.removeItem('AnswerUserList')
     localStorage.removeItem('know')
     localStorage.removeItem('have')
+    localStorage.removeItem('Proses')
+    localStorage.removeItem('questionId')
   }
-
   const handleProceed = () => {
     const answer = JSON?.parse(localStorage.getItem('AnswerUserList')) ?? []
     enterQuestion({
@@ -92,6 +105,9 @@ export function LendingPage() {
     })
 
     setProceed(true)
+    setLoadingProceed(true)
+    setCurretResult(0)
+    localStorage.setItem('Proses', true)
   }
 
   return (
@@ -150,7 +166,7 @@ export function LendingPage() {
             <p className="my-4 text-base font-bold text-neutral-500">Question to fills</p>
             <Steps current={!proceed ? currentQuestions : 7} items={Question} />
             <p className="my-4 text-base font-bold text-neutral-500">Suggestion outcome</p>
-            <Steps current={1} items={Result} />
+            <Steps current={currentResult} items={Result} />
           </div>
           <div className="relative z-10 flex w-[70%] flex-col gap-3 pb-[60px]">
             <div className="z-10 flex h-full w-full flex-col gap-3 overflow-y-scroll pb-10 pr-2">
@@ -248,12 +264,26 @@ export function LendingPage() {
                       </div>
                     </div>
                   )}
+                {proceed && loadingProceed && (
+                  <div className="flex flex-row justify-between py-6">
+                    <div className="flex flex-col items-center justify-center">
+                      <p className="text-sm font-semibold text-white">
+                        Please wait a moment, we trying to create a suggestion for you
+                      </p>
+                      <p className="text-xs text-neutral-500">
+                        (Next up, Result 1: Choose the best lending place)
+                      </p>
+                    </div>
+                    <div className="flex flex-row gap-5 text-sm font-semibold">
+                      <AiOutlineLoading3Quarters className="h-8 w-8 animate-spin text-bluex-400" />
+                    </div>
+                  </div>
+                )}
+                {currentResult === 0 && <ResultAnswer1 />}
               </div>
             </div>
             <div className="absolute bottom-0 flex h-[60px] w-full flex-row gap-5">
               <div className="relative h-[60px] w-full  rounded-2xl border border-eneutral-300 bg-eneutral-200">
-                {/* {choise && <div className="absolute z-30 h-full w-full cursor-not-allowed" />} */}
-
                 <textarea
                   rows="1"
                   type="text"

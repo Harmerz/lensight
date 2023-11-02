@@ -138,7 +138,7 @@ export const options = {
     },
   },
   pages: {
-    signIn: '/signin',
+    signIn: '/auth/signin',
     newUser: '/welcome',
   },
 }
